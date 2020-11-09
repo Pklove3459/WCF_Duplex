@@ -34,7 +34,7 @@ namespace Contratos
                 new Usuario()
                 {
                     Nickname = "redditor420",
-                    Password = "virgen69"
+                    Password = "ganobiden"
                 },
 
                 new Usuario()
