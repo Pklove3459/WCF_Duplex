@@ -106,7 +106,7 @@ namespace GUIClient.LoginService {
         void GetLoginResult(GUIClient.LoginService.LoginResult resultado);
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/ILoginManager/GetUsersOnline")]
-        void GetUsersOnline(System.Collections.Generic.Dictionary<string, object> usuariosConectados);
+        void GetUsersOnline(string[] usuariosConectados);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]

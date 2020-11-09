@@ -14,12 +14,14 @@ namespace Contratos
         void Login(Usuario usuario);
     }
 
+    
     interface ILoginManagerCallback
     {
         [OperationContract(IsOneWay = true)]
         void GetLoginResult(LoginResult resultado);
 
         [OperationContract(IsOneWay = true)]
-        void GetUsersOnline(Dictionary<string, ILoginManagerCallback> usuariosConectados);
+        void GetUsersOnline(List<string> usuariosConectados);
     }
+    
 }

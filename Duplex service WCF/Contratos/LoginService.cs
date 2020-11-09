@@ -8,10 +8,11 @@ using System.Threading.Tasks;
 
 namespace Contratos
 {
-    [ServiceBehavior(InstanceContextMode = InstanceContextMode.PerSession)]
+    [ServiceBehavior(InstanceContextMode = InstanceContextMode.Single, ConcurrencyMode = ConcurrencyMode.Single)]
     public class LoginService : ILoginManager
     {
-        private Dictionary<string, ILoginManagerCallback> usuariosConectados;
+        private Dictionary<string, ILoginManagerCallback> usuariosConectados = new Dictionary<string, ILoginManagerCallback>();
+        private List<string> usuariosMensaje = new List<string>();
 
         public void Login(Usuario usuario)
         {
@@ -45,9 +46,15 @@ namespace Contratos
 
             if (usuarios.Any(user => user.Nickname.Equals(usuario.Nickname)))
             {
-                if (usuarios.Any(user => user.Nickname.Equals(usuario.Password)))
+                if (usuarios.Any(user => user.Password.Equals(usuario.Password)))
                 {
                     resultado = LoginResult.ExisteUsuario;
+                    usuariosConectados.Add(usuario.Nickname, Callback);
+                    usuariosMensaje.Add(usuario.Nickname);
+
+                    NotificarDeNuevoUsuario();
+                    
+                    
                 }
                 else
                 {
@@ -58,10 +65,18 @@ namespace Contratos
             {
                 resultado = LoginResult.NoExisteUsuario;
             }
-
-            usuariosConectados.Add(usuario.Nickname, Callback);
+            
+            
             Callback.GetLoginResult(resultado);
-            Callback.GetUsersOnline(usuariosConectados);
+            
+        }
+
+        private void NotificarDeNuevoUsuario()
+        {
+            foreach (var _usuario in usuariosConectados)
+            {
+                _usuario.Value.GetUsersOnline(usuariosMensaje);
+            }
         }
 
         ILoginManagerCallback Callback

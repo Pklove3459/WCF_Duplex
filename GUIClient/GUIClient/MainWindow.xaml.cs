@@ -31,17 +31,11 @@ namespace GUIClient
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            
-            InstanceContext instanceContext = new InstanceContext(new LoginCallbackHandler());
-            LoginService.LoginManagerClient cliente = new LoginService.LoginManagerClient(instanceContext);
-
-            
-            cliente.Login(new LoginService.Usuario { 
+            LoginManager.IniciarSesion(new LoginService.Usuario
+            {
                 Nickname = nickname.Text,
                 Password = password.Text
             });
-
-            usuariosConectadosList.ItemsSource = LoginCallbackHandler.ObtenerUsuariosConectados();
         }
     }
 }
