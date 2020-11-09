@@ -1,9 +1,6 @@
-﻿
-using GUIClient.MainService;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.ServiceModel;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -19,19 +16,22 @@ using System.Windows.Shapes;
 namespace GUIClient
 {
     /// <summary>
-    /// Lógica de interacción para MainWindow.xaml
+    /// Lógica de interacción para Login.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class Login : Page
     {
-        public MainWindow()
+        public Login()
         {
             InitializeComponent();
-            
         }
 
-        public void Entrar()
+        private void Button_Click(object sender, RoutedEventArgs e)
         {
-            frameNavigation.Navigate(new Mensaje());
+            LoginManager.IniciarSesion(new MainService.Usuario
+            {
+                Nickname = nickname.Text,
+                Password = password.Text
+            });
         }
     }
 }

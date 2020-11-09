@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace GUIClient.LoginService {
+namespace GUIClient.MainService {
     using System.Runtime.Serialization;
     using System;
     
@@ -89,33 +89,33 @@ namespace GUIClient.LoginService {
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    [System.ServiceModel.ServiceContractAttribute(ConfigurationName="LoginService.ILoginManager", CallbackContract=typeof(GUIClient.LoginService.ILoginManagerCallback))]
+    [System.ServiceModel.ServiceContractAttribute(ConfigurationName="MainService.ILoginManager", CallbackContract=typeof(GUIClient.MainService.ILoginManagerCallback))]
     public interface ILoginManager {
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/ILoginManager/Login")]
-        void Login(GUIClient.LoginService.Usuario usuario);
+        void Login(GUIClient.MainService.Usuario usuario);
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/ILoginManager/Login")]
-        System.Threading.Tasks.Task LoginAsync(GUIClient.LoginService.Usuario usuario);
+        System.Threading.Tasks.Task LoginAsync(GUIClient.MainService.Usuario usuario);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     public interface ILoginManagerCallback {
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/ILoginManager/GetLoginResult")]
-        void GetLoginResult(GUIClient.LoginService.LoginResult resultado);
+        void GetLoginResult(GUIClient.MainService.LoginResult resultado);
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/ILoginManager/GetUsersOnline")]
         void GetUsersOnline(string[] usuariosConectados);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    public interface ILoginManagerChannel : GUIClient.LoginService.ILoginManager, System.ServiceModel.IClientChannel {
+    public interface ILoginManagerChannel : GUIClient.MainService.ILoginManager, System.ServiceModel.IClientChannel {
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    public partial class LoginManagerClient : System.ServiceModel.DuplexClientBase<GUIClient.LoginService.ILoginManager>, GUIClient.LoginService.ILoginManager {
+    public partial class LoginManagerClient : System.ServiceModel.DuplexClientBase<GUIClient.MainService.ILoginManager>, GUIClient.MainService.ILoginManager {
         
         public LoginManagerClient(System.ServiceModel.InstanceContext callbackInstance) : 
                 base(callbackInstance) {
@@ -137,12 +137,67 @@ namespace GUIClient.LoginService {
                 base(callbackInstance, binding, remoteAddress) {
         }
         
-        public void Login(GUIClient.LoginService.Usuario usuario) {
+        public void Login(GUIClient.MainService.Usuario usuario) {
             base.Channel.Login(usuario);
         }
         
-        public System.Threading.Tasks.Task LoginAsync(GUIClient.LoginService.Usuario usuario) {
+        public System.Threading.Tasks.Task LoginAsync(GUIClient.MainService.Usuario usuario) {
             return base.Channel.LoginAsync(usuario);
+        }
+    }
+    
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ServiceModel.ServiceContractAttribute(ConfigurationName="MainService.IMessageManager", CallbackContract=typeof(GUIClient.MainService.IMessageManagerCallback))]
+    public interface IMessageManager {
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IMessageManager/SendMessage")]
+        void SendMessage(string destination, string message);
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IMessageManager/SendMessage")]
+        System.Threading.Tasks.Task SendMessageAsync(string destination, string message);
+    }
+    
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public interface IMessageManagerCallback {
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IMessageManager/ReceiveMessage")]
+        void ReceiveMessage(string source, string message);
+    }
+    
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public interface IMessageManagerChannel : GUIClient.MainService.IMessageManager, System.ServiceModel.IClientChannel {
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public partial class MessageManagerClient : System.ServiceModel.DuplexClientBase<GUIClient.MainService.IMessageManager>, GUIClient.MainService.IMessageManager {
+        
+        public MessageManagerClient(System.ServiceModel.InstanceContext callbackInstance) : 
+                base(callbackInstance) {
+        }
+        
+        public MessageManagerClient(System.ServiceModel.InstanceContext callbackInstance, string endpointConfigurationName) : 
+                base(callbackInstance, endpointConfigurationName) {
+        }
+        
+        public MessageManagerClient(System.ServiceModel.InstanceContext callbackInstance, string endpointConfigurationName, string remoteAddress) : 
+                base(callbackInstance, endpointConfigurationName, remoteAddress) {
+        }
+        
+        public MessageManagerClient(System.ServiceModel.InstanceContext callbackInstance, string endpointConfigurationName, System.ServiceModel.EndpointAddress remoteAddress) : 
+                base(callbackInstance, endpointConfigurationName, remoteAddress) {
+        }
+        
+        public MessageManagerClient(System.ServiceModel.InstanceContext callbackInstance, System.ServiceModel.Channels.Binding binding, System.ServiceModel.EndpointAddress remoteAddress) : 
+                base(callbackInstance, binding, remoteAddress) {
+        }
+        
+        public void SendMessage(string destination, string message) {
+            base.Channel.SendMessage(destination, message);
+        }
+        
+        public System.Threading.Tasks.Task SendMessageAsync(string destination, string message) {
+            return base.Channel.SendMessageAsync(destination, message);
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿using GUIClient.LoginService;
+﻿using GUIClient.MainService;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -14,12 +14,14 @@ namespace GUIClient
     [CallbackBehavior(ConcurrencyMode = ConcurrencyMode.Reentrant)]
     public class LoginCallbackHandler : ILoginManagerCallback
     {
+        ObservableCollection<string> misUsuarios = new ObservableCollection<string>();
 
         public void GetLoginResult(LoginResult resultado)
         {
             if (resultado == LoginResult.ExisteUsuario)
             {
-                MessageBox.Show("Iniciaste sesion");
+                MainWindow ventanaInicio = App.Current.Windows.OfType<MainWindow>().FirstOrDefault();
+                ventanaInicio.Entrar();
 
 
             }
@@ -37,6 +39,8 @@ namespace GUIClient
         {
             MainWindow ventanaInicio = App.Current.Windows.OfType<MainWindow>().FirstOrDefault();
             ObservableCollection<string> misUsuarios = new ObservableCollection<string>(usuariosConectados);
+
+            Console.WriteLine(misUsuarios);
 
             ventanaInicio.usuariosConectadosList.ItemsSource = misUsuarios;
         }

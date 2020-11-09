@@ -23,4 +23,20 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
+  <xs:element name="SendMessage">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="destination" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="message" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ReceiveMessage">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="source" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="message" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
 </xs:schema>

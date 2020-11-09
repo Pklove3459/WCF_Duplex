@@ -11,7 +11,7 @@ namespace Servidor
     {
         static void Main(string[] args)
         {
-            using (ServiceHost host = new ServiceHost(typeof(Contratos.LoginService)))
+            using (ServiceHost host = new ServiceHost(typeof(Contratos.MainService)))
             {
                 host.Open();
                 Console.WriteLine("Server is running");

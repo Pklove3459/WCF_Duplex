@@ -8,10 +8,12 @@ using System.Threading.Tasks;
 
 namespace Contratos
 {
+
     [ServiceBehavior(InstanceContextMode = InstanceContextMode.Single, ConcurrencyMode = ConcurrencyMode.Single)]
-    public class LoginService : ILoginManager
+    public partial class MainService : ILoginManager
     {
         private Dictionary<string, ILoginManagerCallback> usuariosConectados = new Dictionary<string, ILoginManagerCallback>();
+        //private Dictionary<string, IMessageManagerCallback> usuariosEnLinea = new Dictionary<string, IMessageManagerCallback>();
         private List<string> usuariosMensaje = new List<string>();
 
         public void Login(Usuario usuario)
@@ -50,6 +52,7 @@ namespace Contratos
                 {
                     resultado = LoginResult.ExisteUsuario;
                     usuariosConectados.Add(usuario.Nickname, Callback);
+                    //usuariosEnLinea.Add(usuario.Nickname, OperationContext.Current.GetCallbackChannel<IMessageManagerCallback>());
                     usuariosMensaje.Add(usuario.Nickname);
 
                     NotificarDeNuevoUsuario();
@@ -75,6 +78,7 @@ namespace Contratos
         {
             foreach (var _usuario in usuariosConectados)
             {
+                Console.WriteLine(_usuario.Key);
                 _usuario.Value.GetUsersOnline(usuariosMensaje);
             }
         }
@@ -85,6 +89,38 @@ namespace Contratos
             {
                 return OperationContext.Current.GetCallbackChannel<ILoginManagerCallback>();
             }
+        }
+    }
+
+    public partial class MainService : IMessageManager
+    {
+        public void SendMessage(string destination, string message)
+        {
+            foreach (var usuario in usuariosConectados)
+            {
+                if (usuario.Key.Equals(destination))
+                {
+                    (usuario.Value as IMessageManagerCallback).ReceiveMessage(GetSourceUser(), message);
+                }
+            }
+      
+        }
+
+        private string GetSourceUser()
+        {
+            string sourceUser = "";
+            //ILoginManagerCallback channel = OperationContext.Current.GetCallbackChannel<ILoginManagerCallback>();
+
+            foreach (var usuario in usuariosConectados)
+            {
+                if (usuario.Value == Callback)
+                {
+                    sourceUser = usuario.Key;
+                    break;
+                }
+            }
+
+            return sourceUser;
         }
     }
 }

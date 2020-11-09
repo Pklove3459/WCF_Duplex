@@ -57,6 +57,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="Login.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -65,10 +69,13 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Connected Services\LoginService\Reference.cs">
+    <Compile Include="Connected Services\MainService\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Login.xaml.cs">
+      <DependentUpon>Login.xaml</DependentUpon>
     </Compile>
     <Compile Include="LoginCallbackHandler.cs" />
     <Compile Include="LoginManager.cs" />
@@ -76,8 +83,17 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Mensaje.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Mensaje.xaml.cs">
+      <DependentUpon>Mensaje.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MessageCallbackHandler.cs" />
+    <Compile Include="MessageManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -95,19 +111,19 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <None Include="Connected Services\LoginService\item.xsd">
+    <None Include="Connected Services\MainService\item.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Connected Services\LoginService\item1.xsd">
+    <None Include="Connected Services\MainService\item1.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Connected Services\LoginService\item2.xsd">
+    <None Include="Connected Services\MainService\item2.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Connected Services\LoginService\item3.xsd">
+    <None Include="Connected Services\MainService\item3.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Connected Services\LoginService\LoginService.wsdl" />
+    <None Include="Connected Services\MainService\MainService.wsdl" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -120,19 +136,19 @@
     <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <ItemGroup>
-    <WCFMetadataStorage Include="Connected Services\LoginService\" />
+    <WCFMetadataStorage Include="Connected Services\MainService\" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Connected Services\LoginService\item.disco" />
+    <None Include="Connected Services\MainService\item.disco" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Connected Services\LoginService\configuration91.svcinfo" />
+    <None Include="Connected Services\MainService\configuration91.svcinfo" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Connected Services\LoginService\configuration.svcinfo" />
+    <None Include="Connected Services\MainService\configuration.svcinfo" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Connected Services\LoginService\Reference.svcmap">
+    <None Include="Connected Services\MainService\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>

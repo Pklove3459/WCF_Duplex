@@ -8,14 +8,14 @@ using System.Threading.Tasks;
 namespace Contratos
 {
     [ServiceContract(CallbackContract = typeof(ILoginManagerCallback))]
-    interface ILoginManager
+    public interface ILoginManager
     {
         [OperationContract(IsOneWay = true)]
         void Login(Usuario usuario);
     }
 
     
-    interface ILoginManagerCallback
+    public interface ILoginManagerCallback
     {
         [OperationContract(IsOneWay = true)]
         void GetLoginResult(LoginResult resultado);

@@ -1,4 +1,4 @@
-﻿using GUIClient.LoginService;
+﻿using GUIClient.MainService;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,7 +13,7 @@ namespace GUIClient
         public static void IniciarSesion(Usuario usuario)
         {
             InstanceContext instanceContext = new InstanceContext(new LoginCallbackHandler());
-            LoginService.LoginManagerClient server = new LoginService.LoginManagerClient(instanceContext);
+            MainService.LoginManagerClient server = new MainService.LoginManagerClient(instanceContext);
 
 
             server.Login(usuario);
