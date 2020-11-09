@@ -16,6 +16,7 @@
         <Frame x:Name="frameNavigation" x:FieldModifier="public" Grid.Column="0" Source="Login.xaml" Background="AntiqueWhite" NavigationUIVisibility="Hidden"/>
 
         <StackPanel Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <TextBlock x:FieldModifier="public" x:Name="currentUser" Margin="20" FontWeight="Bold"/>
             <Label Content="Usuarios conectados" HorizontalAlignment="Left" VerticalAlignment="Top"/>
             <ListBox x:Name="usuariosConectadosList" x:FieldModifier="public" HorizontalAlignment="Left" Height="150" VerticalAlignment="Top" Width="200"/>
         </StackPanel>

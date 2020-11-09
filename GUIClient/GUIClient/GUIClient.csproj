@@ -77,8 +77,8 @@
     <Compile Include="Login.xaml.cs">
       <DependentUpon>Login.xaml</DependentUpon>
     </Compile>
-    <Compile Include="LoginCallbackHandler.cs" />
-    <Compile Include="LoginManager.cs" />
+    <Compile Include="MainServiceCallbackHandler.cs" />
+    <Compile Include="MainServiceManager.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -92,8 +92,6 @@
     <Compile Include="Mensaje.xaml.cs">
       <DependentUpon>Mensaje.xaml</DependentUpon>
     </Compile>
-    <Compile Include="MessageCallbackHandler.cs" />
-    <Compile Include="MessageManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>

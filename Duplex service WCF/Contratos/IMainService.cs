@@ -7,14 +7,17 @@ using System.Threading.Tasks;
 
 namespace Contratos
 {
-    [ServiceContract(CallbackContract = typeof(ILoginManagerCallback))]
-    public interface ILoginManager
+    [ServiceContract(CallbackContract = typeof(IMainServiceCallback))]
+    public interface IMainService
     {
         [OperationContract(IsOneWay = true)]
         void Login(Usuario usuario);
+
+        [OperationContract(IsOneWay = true)]
+        void SendMessage(string destination, string message);
     }
 
-    
+    /*
     public interface ILoginManagerCallback
     {
         [OperationContract(IsOneWay = true)]
@@ -23,5 +26,5 @@ namespace Contratos
         [OperationContract(IsOneWay = true)]
         void GetUsersOnline(List<string> usuariosConectados);
     }
-    
+    */
 }

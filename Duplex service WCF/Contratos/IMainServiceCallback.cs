@@ -7,15 +7,14 @@ using System.Threading.Tasks;
 
 namespace Contratos
 {
-    [ServiceContract(CallbackContract = typeof(IMessageManagerCallback))]
-    public interface IMessageManager
+    public interface IMainServiceCallback
     {
         [OperationContract(IsOneWay = true)]
-        void SendMessage(string destination, string message);
-    }
+        void GetLoginResult(LoginResult resultado);
 
-    public interface IMessageManagerCallback
-    {
+        [OperationContract(IsOneWay = true)]
+        void GetUsersOnline(List<string> usuariosConectados);
+
         [OperationContract(IsOneWay = true)]
         void ReceiveMessage(string source, string message);
     }

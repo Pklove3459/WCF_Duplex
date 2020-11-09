@@ -35,7 +35,7 @@ namespace GUIClient
             MainWindow ventanaInicio = App.Current.Windows.OfType<MainWindow>().FirstOrDefault();
 
             string destinatario = ventanaInicio.usuariosConectadosList.SelectedItem as string;
-            MessageManager.EnviarMensaje(destinatario, mensaje.Text);
+            MainServiceManager.EnviarMensaje(destinatario, mensaje.Text);
             listaMensaje.Add("Yo: " + mensaje.Text);
         }
 

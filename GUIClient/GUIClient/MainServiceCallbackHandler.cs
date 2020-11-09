@@ -6,23 +6,20 @@ using System.Linq;
 using System.ServiceModel;
 using System.Text;
 using System.Threading.Tasks;
-using System.Timers;
 using System.Windows;
 
 namespace GUIClient
 {
     [CallbackBehavior(ConcurrencyMode = ConcurrencyMode.Reentrant)]
-    public class LoginCallbackHandler : ILoginManagerCallback
+    public class MainServiceCallbackHandler : IMainServiceCallback
     {
-        ObservableCollection<string> misUsuarios = new ObservableCollection<string>();
-
         public void GetLoginResult(LoginResult resultado)
         {
             if (resultado == LoginResult.ExisteUsuario)
             {
                 MainWindow ventanaInicio = App.Current.Windows.OfType<MainWindow>().FirstOrDefault();
                 ventanaInicio.Entrar();
-
+                ventanaInicio.currentUser.Text = "Hola: " + (ventanaInicio.frameNavigation.Content as Login).nickname.Text;
 
             }
             else if (resultado == LoginResult.NoExisteUsuario)
@@ -43,6 +40,15 @@ namespace GUIClient
             Console.WriteLine(misUsuarios);
 
             ventanaInicio.usuariosConectadosList.ItemsSource = misUsuarios;
+        }
+
+        public void ReceiveMessage(string source, string message)
+        {
+            //Mensaje ventanaMensaje = App.Current.Windows.OfType<Mensaje>().FirstOrDefault();
+            MainWindow ventanaInicio = App.Current.Windows.OfType<MainWindow>().FirstOrDefault();
+            (ventanaInicio.frameNavigation.Content as Mensaje).AgregarMensaje(source, message);
+
+            //ventanaMensaje.AgregarMensaje(source, message);
         }
     }
 }

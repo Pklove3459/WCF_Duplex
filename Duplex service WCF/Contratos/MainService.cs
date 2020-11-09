@@ -10,10 +10,11 @@ namespace Contratos
 {
 
     [ServiceBehavior(InstanceContextMode = InstanceContextMode.Single, ConcurrencyMode = ConcurrencyMode.Single)]
-    public partial class MainService : ILoginManager
+    public partial class MainService : IMainService
     {
-        private Dictionary<string, ILoginManagerCallback> usuariosConectados = new Dictionary<string, ILoginManagerCallback>();
+        //private Dictionary<string, IMainServiceCallback> usuariosConectados = new Dictionary<string, IMainServiceCallback>();
         //private Dictionary<string, IMessageManagerCallback> usuariosEnLinea = new Dictionary<string, IMessageManagerCallback>();
+        private Dictionary<IMainServiceCallback, string> usuariosConectados = new Dictionary<IMainServiceCallback, string>();
         private List<string> usuariosMensaje = new List<string>();
 
         public void Login(Usuario usuario)
@@ -51,7 +52,7 @@ namespace Contratos
                 if (usuarios.Any(user => user.Password.Equals(usuario.Password)))
                 {
                     resultado = LoginResult.ExisteUsuario;
-                    usuariosConectados.Add(usuario.Nickname, Callback);
+                    usuariosConectados.Add(Callback, usuario.Nickname);
                     //usuariosEnLinea.Add(usuario.Nickname, OperationContext.Current.GetCallbackChannel<IMessageManagerCallback>());
                     usuariosMensaje.Add(usuario.Nickname);
 
@@ -78,49 +79,43 @@ namespace Contratos
         {
             foreach (var _usuario in usuariosConectados)
             {
-                Console.WriteLine(_usuario.Key);
-                _usuario.Value.GetUsersOnline(usuariosMensaje);
+                _usuario.Key.GetUsersOnline(usuariosMensaje);
             }
         }
 
-        ILoginManagerCallback Callback
-        {
-            get
-            {
-                return OperationContext.Current.GetCallbackChannel<ILoginManagerCallback>();
-            }
-        }
-    }
-
-    public partial class MainService : IMessageManager
-    {
         public void SendMessage(string destination, string message)
         {
             foreach (var usuario in usuariosConectados)
             {
-                if (usuario.Key.Equals(destination))
+                if (usuario.Value.Equals(destination))
                 {
-                    (usuario.Value as IMessageManagerCallback).ReceiveMessage(GetSourceUser(), message);
+                    usuario.Key.ReceiveMessage(GetSourceUser(), message);
                 }
             }
-      
         }
 
         private string GetSourceUser()
         {
             string sourceUser = "";
-            //ILoginManagerCallback channel = OperationContext.Current.GetCallbackChannel<ILoginManagerCallback>();
 
             foreach (var usuario in usuariosConectados)
             {
-                if (usuario.Value == Callback)
+                if (usuario.Key == Callback)
                 {
-                    sourceUser = usuario.Key;
-                    break;
+                    sourceUser = usuario.Value;
                 }
+                
             }
 
             return sourceUser;
+        }
+
+        IMainServiceCallback Callback
+        {
+            get
+            {
+                return OperationContext.Current.GetCallbackChannel<IMainServiceCallback>();
+            }
         }
     }
 }

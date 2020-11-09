@@ -27,7 +27,7 @@ namespace GUIClient
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            LoginManager.IniciarSesion(new MainService.Usuario
+            MainServiceManager.IniciarSesion(new MainService.Usuario
             {
                 Nickname = nickname.Text,
                 Password = password.Text

@@ -42,8 +42,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ILoginManager.cs" />
-    <Compile Include="IMessageManager.cs" />
+    <Compile Include="IMainService.cs" />
+    <Compile Include="IMainServiceCallback.cs" />
     <Compile Include="LoginResult.cs" />
     <Compile Include="MainService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
