@@ -5,19 +5,18 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{7ED2B966-DB60-4710-81EC-877084A0C32C}</ProjectGuid>
-    <OutputType>Exe</OutputType>
-    <RootNamespace>Servidor</RootNamespace>
-    <AssemblyName>Servidor</AssemblyName>
+    <ProjectGuid>{DBD541E0-89EC-40F8-AD3C-3A3828C2ABE8}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>DataAccess</RootNamespace>
+    <AssemblyName>DataAccess</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -27,7 +26,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -45,7 +43,9 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
-    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -54,18 +54,69 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Program.cs" />
+    <Compile Include="DataManager\UsuarioDataManager.cs" />
+    <Compile Include="Juego.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Juego.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Juego.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Juego.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Juego.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Juego.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="JuegoModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>JuegoModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Usuario.cs">
+      <DependentUpon>JuegoModel.tt</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <EntityDeploy Include="Juego.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>Juego.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="Juego.edmx.diagram">
+      <DependentUpon>Juego.edmx</DependentUpon>
+    </None>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Contratos\Contratos.csproj">
-      <Project>{a3d57d03-530d-495c-a4d4-2d720a41c40a}</Project>
-      <Name>Contratos</Name>
+    <ProjectReference Include="..\Domain\Domain.csproj">
+      <Project>{966db3d2-4f3f-4c6a-a6bf-75b15f95bc80}</Project>
+      <Name>Domain</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Juego.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Juego.Context.cs</LastGenOutput>
+      <DependentUpon>Juego.edmx</DependentUpon>
+    </Content>
+    <Content Include="Juego.edmx.sql" />
+    <Content Include="Juego.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Juego.cs</LastGenOutput>
+      <DependentUpon>Juego.edmx</DependentUpon>
+    </Content>
+    <Content Include="JuegoModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>JuegoModel.cs</LastGenOutput>
+      <DependentUpon>Juego.edmx</DependentUpon>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

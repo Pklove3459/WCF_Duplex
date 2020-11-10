@@ -5,6 +5,7 @@ using System.Linq;
 using System.ServiceModel;
 using System.Text;
 using System.Threading.Tasks;
+using DataAccess.DataManager;
 
 namespace Contratos
 {
@@ -20,6 +21,7 @@ namespace Contratos
         public void Login(Usuario usuario)
         {
             LoginResult resultado;
+            /*
             List<Usuario> usuarios = new List<Usuario>
             {
                 new Usuario()
@@ -46,10 +48,12 @@ namespace Contratos
                     Password = "bobcholo"
                 }
             };
-
-            if (usuarios.Any(user => user.Nickname.Equals(usuario.Nickname)))
+            */
+            UsuarioDataManager usuarioDataManager = new UsuarioDataManager();
+            
+            if (usuarioDataManager.ExisteNickname(usuario.Nickname))
             {
-                if (usuarios.Any(user => user.Password.Equals(usuario.Password)))
+                if (usuarioDataManager.EsPasswordCorrecto(usuario.Password))
                 {
                     resultado = LoginResult.ExisteUsuario;
                     usuariosConectados.Add(usuario.Nickname, Callback);
