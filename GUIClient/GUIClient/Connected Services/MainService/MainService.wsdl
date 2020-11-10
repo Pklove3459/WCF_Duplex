@@ -78,6 +78,9 @@
   <wsdl:message name="IMessageManager_SendMessage_InputMessage">
     <wsdl:part name="parameters" element="tns:SendMessage" />
   </wsdl:message>
+  <wsdl:message name="IMessageManager_GetMessageCallback_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetMessageCallback" />
+  </wsdl:message>
   <wsdl:message name="IMessageManager_ReceiveMessage_OutputCallbackMessage">
     <wsdl:part name="parameters" element="tns:ReceiveMessage" />
   </wsdl:message>
@@ -95,6 +98,9 @@
   <wsdl:portType name="IMessageManager">
     <wsdl:operation name="SendMessage">
       <wsdl:input wsaw:Action="http://tempuri.org/IMessageManager/SendMessage" message="tns:IMessageManager_SendMessage_InputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetMessageCallback">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMessageManager/GetMessageCallback" message="tns:IMessageManager_GetMessageCallback_InputMessage" />
     </wsdl:operation>
     <wsdl:operation name="ReceiveMessage">
       <wsdl:output wsaw:Action="http://tempuri.org/IMessageManager/ReceiveMessage" message="tns:IMessageManager_ReceiveMessage_OutputCallbackMessage" />
@@ -127,6 +133,12 @@
     <soap12:binding transport="http://schemas.microsoft.com/soap/tcp" />
     <wsdl:operation name="SendMessage">
       <soap12:operation soapAction="http://tempuri.org/IMessageManager/SendMessage" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+    </wsdl:operation>
+    <wsdl:operation name="GetMessageCallback">
+      <soap12:operation soapAction="http://tempuri.org/IMessageManager/GetMessageCallback" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

@@ -12,8 +12,12 @@ namespace Contratos
     {
         [OperationContract(IsOneWay = true)]
         void SendMessage(string destination, string message);
+
+        [OperationContract(IsOneWay = true)]
+        void GetMessageCallback();
     }
 
+    [ServiceContract]
     public interface IMessageManagerCallback
     {
         [OperationContract(IsOneWay = true)]

@@ -14,7 +14,7 @@ namespace Contratos
         void Login(Usuario usuario);
     }
 
-    
+    [ServiceContract]
     public interface ILoginManagerCallback
     {
         [OperationContract(IsOneWay = true)]

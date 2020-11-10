@@ -21,9 +21,9 @@ namespace GUIClient
             if (resultado == LoginResult.ExisteUsuario)
             {
                 MainWindow ventanaInicio = App.Current.Windows.OfType<MainWindow>().FirstOrDefault();
+                MessageManager.AgregarMessageCallback();
                 ventanaInicio.Entrar();
-
-
+                
             }
             else if (resultado == LoginResult.NoExisteUsuario)
             {

@@ -31,6 +31,11 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
+  <xs:element name="GetMessageCallback">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
   <xs:element name="ReceiveMessage">
     <xs:complexType>
       <xs:sequence>

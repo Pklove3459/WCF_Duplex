@@ -13,8 +13,7 @@ namespace GUIClient
         public static void IniciarSesion(Usuario usuario)
         {
             InstanceContext instanceContext = new InstanceContext(new LoginCallbackHandler());
-            MainService.LoginManagerClient server = new MainService.LoginManagerClient(instanceContext);
-
+            LoginManagerClient server = new LoginManagerClient(instanceContext);
 
             server.Login(usuario);
         }

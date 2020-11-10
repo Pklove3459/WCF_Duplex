@@ -11,9 +11,11 @@ namespace GUIClient
     {
         public void ReceiveMessage(string source, string message)
         {
-            Mensaje ventanaMensaje = App.Current.Windows.OfType<Mensaje>().FirstOrDefault();
-
-            ventanaMensaje.AgregarMensaje(source, message);
+            //Mensaje ventanaMensaje = App.Current.Windows.OfType<Mensaje>().First();
+            //Mensaje ventanaMensaje = new Mensaje();
+            //ventanaMensaje.AgregarMensaje(source, message);
+            MainWindow ventanaInicio = App.Current.Windows.OfType<MainWindow>().FirstOrDefault();
+            (ventanaInicio.frameNavigation.Content as Mensaje).AgregarMensaje(source, message);
         }
     }
 }

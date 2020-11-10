@@ -9,12 +9,13 @@ using System.Threading.Tasks;
 namespace Contratos
 {
 
-    [ServiceBehavior(InstanceContextMode = InstanceContextMode.Single, ConcurrencyMode = ConcurrencyMode.Single)]
+    [ServiceBehavior(InstanceContextMode = InstanceContextMode.Single, ConcurrencyMode = ConcurrencyMode.Multiple)]
     public partial class MainService : ILoginManager
     {
         private Dictionary<string, ILoginManagerCallback> usuariosConectados = new Dictionary<string, ILoginManagerCallback>();
         //private Dictionary<string, IMessageManagerCallback> usuariosEnLinea = new Dictionary<string, IMessageManagerCallback>();
         private List<string> usuariosMensaje = new List<string>();
+        private Usuario usuarioActual;
 
         public void Login(Usuario usuario)
         {
@@ -54,10 +55,9 @@ namespace Contratos
                     usuariosConectados.Add(usuario.Nickname, Callback);
                     //usuariosEnLinea.Add(usuario.Nickname, OperationContext.Current.GetCallbackChannel<IMessageManagerCallback>());
                     usuariosMensaje.Add(usuario.Nickname);
+                    usuarioActual = usuario;
 
-                    NotificarDeNuevoUsuario();
-                    
-                    
+                    NotificarDeNuevoUsuario();                                      
                 }
                 else
                 {
@@ -78,11 +78,11 @@ namespace Contratos
         {
             foreach (var _usuario in usuariosConectados)
             {
-                Console.WriteLine(_usuario.Key);
                 _usuario.Value.GetUsersOnline(usuariosMensaje);
             }
         }
 
+        
         ILoginManagerCallback Callback
         {
             get
@@ -94,26 +94,25 @@ namespace Contratos
 
     public partial class MainService : IMessageManager
     {
+        private readonly Dictionary<string, IMessageManagerCallback> usuariosParaMensaje = new Dictionary<string, IMessageManagerCallback>();
+
+        public void GetMessageCallback()
+        {
+            usuariosParaMensaje.Add(usuarioActual.Nickname, Callback2);
+        }
+
         public void SendMessage(string destination, string message)
         {
-            foreach (var usuario in usuariosConectados)
-            {
-                if (usuario.Key.Equals(destination))
-                {
-                    (usuario.Value as IMessageManagerCallback).ReceiveMessage(GetSourceUser(), message);
-                }
-            }
-      
+            usuariosParaMensaje[destination].ReceiveMessage(GetSourceUser(), message);
         }
 
         private string GetSourceUser()
         {
             string sourceUser = "";
-            //ILoginManagerCallback channel = OperationContext.Current.GetCallbackChannel<ILoginManagerCallback>();
 
-            foreach (var usuario in usuariosConectados)
+            foreach (var usuario in usuariosParaMensaje)
             {
-                if (usuario.Value == Callback)
+                if (usuario.Value == Callback2)
                 {
                     sourceUser = usuario.Key;
                     break;
@@ -121,6 +120,14 @@ namespace Contratos
             }
 
             return sourceUser;
+        }
+
+        IMessageManagerCallback Callback2
+        {
+            get
+            {
+                return OperationContext.Current.GetCallbackChannel<IMessageManagerCallback>();
+            }
         }
     }
 }

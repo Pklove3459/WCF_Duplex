@@ -155,6 +155,12 @@ namespace GUIClient.MainService {
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IMessageManager/SendMessage")]
         System.Threading.Tasks.Task SendMessageAsync(string destination, string message);
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IMessageManager/GetMessageCallback")]
+        void GetMessageCallback();
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IMessageManager/GetMessageCallback")]
+        System.Threading.Tasks.Task GetMessageCallbackAsync();
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -198,6 +204,14 @@ namespace GUIClient.MainService {
         
         public System.Threading.Tasks.Task SendMessageAsync(string destination, string message) {
             return base.Channel.SendMessageAsync(destination, message);
+        }
+        
+        public void GetMessageCallback() {
+            base.Channel.GetMessageCallback();
+        }
+        
+        public System.Threading.Tasks.Task GetMessageCallbackAsync() {
+            return base.Channel.GetMessageCallbackAsync();
         }
     }
 }
